@@ -1,37 +1,39 @@
 <template>
   <div id="app">
-	<div class="logo">
-		<img :src="logoSrc">
-	</div>
+	<logo-select></logo-select>
 	<div class="search-box">
 		<input type="text" class="search-input" id="searchBox" v-model="text" @keyup="getList">
 		<button type="button" class="search-btn" name="button">搜索</button>
 	</div>
 	<div class="list">
-		<ul>
-			<li v-for="list in resultList">{{list}}</li>
-		</ul>
+		<transition-group name="itemfade" tag="ul" mode="out-in" v-cloak>
+			<li v-for="list in resultList" :key="list">{{list[0]}}</li>
+		</transition-group>
 	</div>
   </div>
 </template>
 
 <script>
-
+import logoSelect from './components/logo-select.vue'
 export default {
   name: 'app',
+  components:{
+	  'logo-select':logoSelect
+  },
   data(){
 	  return {
 		  text:'',
-		  logoSrc:require('./assets/bd_logo.png'),
 		  //https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=
-		  url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?',
+		  //https://www.google.com/complete/search?client=hp&hl=zh-TW&gs_rn=64&gs_ri=hp&tok=c3XrYVdCgKFBRZ2lMqcs0A&cp=2&gs_id=vc&q=12&xhr=t
+		  url:'https://www.google.com/complete/search?client=hp&hl=zh-TW&gs_rn=64&gs_ri=hp&tok=c3XrYVdCgKFBRZ2lMqcs0A&cp=2&gs_id=vc',
+		  callback:'jsonp',
 		  resultList:[]
 	  }
   },
   methods:{
 	  getList:function(){
-		  this.$http.jsonp(this.url,{params:{wd:this.text},jsonp:'cb'}).then(function(res){
-			  this.resultList = res.data.s;
+		  this.$http.jsonp(this.url,{params:{q:this.text},jsonp:this.callback}).then(function(res){
+			  this.resultList = res.data[1];
 		  })
 	  }
   }
@@ -89,5 +91,14 @@ body{
 	padding-left: 10px;
 	background: #fff;
 	font-size: 14px;
+	transition: all .3s ease;
+}
+.itemfade-enter,
+.itemfade-leave-active {
+    opacity: 0;
+}
+
+.itemfade-leave-active {
+    position: absolute;
 }
 </style>
