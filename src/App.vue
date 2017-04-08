@@ -34,7 +34,7 @@ export default {
 				url:'https://www.google.com/complete/search?client=hp&hl=zh-TW&gs_rn=64&gs_ri=hp&tok=c3XrYVdCgKFBRZ2lMqcs0A&cp=2&gs_id=vc'
 			},
 			{
-				url:'https://sug.so.360.cn/suggest'
+				url:'https://sug.so.360.cn/suggest?encodein=utf-8&encodeout=utf-8'
 			}
 		  ]
 	  }
