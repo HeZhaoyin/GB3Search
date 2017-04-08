@@ -56,7 +56,7 @@ export default {
 				});
 		  		break;
 			case 2:
-				this.$http.jsonp(this.searchList[0].url,{params:{word:this.text},jsonp:'sug'}).then(function(res){
+				this.$http.jsonp(this.searchList[2].url,{params:{word:this.text}}).then(function(res){
 					this.resultList = res.data.s;
 				});
 				break;
