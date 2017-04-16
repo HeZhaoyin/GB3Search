@@ -1,3 +1,4 @@
+[预览](https://bunnywithyou.github.io/GB3Search/dist/)
 # gb3search
 
 > google baidu 360 search
